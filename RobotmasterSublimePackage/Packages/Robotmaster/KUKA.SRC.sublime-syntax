@@ -1,0 +1,65 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+file_extensions:
+  - SRC
+scope: source.SRC
+contexts:
+  main:
+    # Strings begin and end with quotes, and use backslashes as an escape
+    # character
+    - match: '"'
+      scope: punctuation.definition.string.begin.SRC
+      push: double_quoted_string
+
+    # Comments begin with a '//' and finish at the end of the line
+    - match: '\n(C|c).+'
+      scope: punctuation.definition.comment.SRC
+      push: line_comment
+
+    # Keywords are if, else for and while.
+    # Note that blackslashes don't need to be escaped within single quoted
+    # strings in YAML. When using single quoted strings, only single quotes
+    # need to be escaped: this is done by using two single quotes next to each
+    # other.
+    - match: '\b(if|else|for|while)\b'
+      scope: keyword.control.SRC
+
+    # Numbers
+    - match: '\b(-)?[0-9.]+\b'
+      scope: constant.numeric.SRC
+
+    # Motion type
+    - match: '\b(SLIN|PTP|LIN|CIRC)\b'
+      scope: support.type.SRC
+
+    # Coords
+    - match: '\b(X|Y|Z|A|B|C|E+\d|S|T)\b'
+      scope: keyword.control.SRC
+    
+    # Variable controler
+    - match: '(\#+\w+)'
+      scope: variable.language.SRC
+
+    # Variable controler
+    - match: '(\$+\w+)'
+      scope: entity.name.SRC
+    
+    # Comment
+    - match: ';.+'
+      scope: comment.line.SRC    
+
+  double_quoted_string:
+    - meta_scope: string.quoted.double.SRC
+    - match: '\\.'
+      scope: constant.character.escape.SRC
+    - match: '"'
+      scope: punctuation.definition.string.end.SRC
+      pop: true
+
+  line_comment:
+    - meta_scope: comment.line.SRC
+    - match: ;
+      pop: true
+
+
