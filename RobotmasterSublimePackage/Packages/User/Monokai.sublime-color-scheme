@@ -337,5 +337,33 @@
             "background": "hsla(80, 65%, 53%, 0.30)",
             "foreground_adjust": "l(+ 10%)"
         },
+        {
+            "scope": "block",
+            "foreground": "hsl(53.9, 100%, 67.3%)",
+        },
+        {
+            "scope": "move.rapid",
+            "foreground": "hsl(261.9, 46.7%, 55.1%)",
+        },
+        {
+            "scope": "move.linear",
+            "foreground": "hsl(186.7, 70.9%, 50.2%)",
+        },
+        {
+            "scope": "move.circular",
+            "foreground": "hsl(339.8, 81.9%, 58.8%)",
+        },
+    	{
+            "scope": "move.position",
+            "foreground": "hsl(122.4, 37.4%, 74.3%)",
+        },
+        {
+            "scope": "move.orientation",
+            "foreground": "hsl(45.1, 100%, 75.5%)",
+        },
+        {
+            "scope": "move.intermediate-point",
+            "foreground": "hsl(45.1, 100%, 75.5%)",
+        },
     ]
 }
