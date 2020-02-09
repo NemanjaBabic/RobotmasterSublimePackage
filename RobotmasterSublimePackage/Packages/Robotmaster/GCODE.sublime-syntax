@@ -23,33 +23,57 @@ contexts:
     - match: '\b(if|else|for|while)\b'
       scope: keyword.control.GCODE
 
-    # Block address: N#
+    # Block address: N#.
     - match: '\bN[0-9]*\b'
-      scope: block.GCODE
+      scope: gcode.block.GCODE
 
     # Position: X, Y and Z.
-    - match: 'X[-+]?[0-9]*\.?[0-9]*|Y[-+]?[0-9]*\.?[0-9]*|Z[-+]?[0-9]*\.?[0-9]*'
-      scope: move.position.GCODE
+    - match: '(?<=\s)X[-+]?[0-9]*\.?[0-9]*|(?<=\s)Y[-+]?[0-9]*\.?[0-9]*|(?<=\s)Z[-+]?[0-9]*\.?[0-9]*'
+      scope: gcode.position.GCODE
 
     # Orientation: A, B and C.
-    - match: 'A=[-+]?[0-9]*\.?[0-9]*|B=[-+]?[0-9]*\.?[0-9]*|C=[-+]?[0-9]*\.?[0-9]*|I1=IC(\S+)*|J1=IC(\S+)*|K1=IC(\S+)*'
-      scope: move.orientation.GCODE
+    - match: '(?<=\s)A=[-+]?[0-9]*\.?[0-9]*|(?<=\s)B=[-+]?[0-9]*\.?[0-9]*|(?<=\s)C=[-+]?[0-9]*\.?[0-9]*|(?<=\s)I(?!1=)[-+]?[0-9]*\.?[0-9]*|(?<=\s)J(?!(1=|2=|3=|4=|5=|6=))[-+]?[0-9]*\.?[0-9]*|(?<=\s)K(?!1=)[-+]?[0-9]*\.?[0-9]*'
+      scope: gcode.orientation.GCODE
 
-    # Intermediate point: I1, J1 and K1
-    - match: 'I1=IC(\S+)*|J1=IC(\S+)*|K1=IC(\S+)*'
-      scope: move.intermediate-point.GCODE
+    # Joint position: J1-J6.
+    - match: '(?<=\s)J[1-6]=(?!IC)[-+]?[0-9]*\.?[0-9]*|'
+      scope: gcode.joint-position.GCODE
 
-    # Rapid move: JJ/JC
+    # Intermediate point: I1, J1 and K1.
+    - match: '(?<=\s)I1=IC(\S+)*|(?<=\s)J1=IC(\S+)*|(?<=\s)K1=IC(\S+)*'
+      scope: gcode.intermediate-point.GCODE
+
+    # Rapid move: JJ/JC.
     - match: '\bG00\b|\bG0\b'
-      scope: move.rapid.GCODE
+      scope: gcode.rapid-move.GCODE
 
-    # Linear move: LC
+    # Linear move: LC.
     - match: '\bG01\b|\bG1\b'
-      scope: move.linear.GCODE
+      scope: gcode.linear-move.GCODE
 
-    # Circular move: CC
+    # Circular move: CC.
     - match: '\bG02\b|\bG2\b|\bG03\b|\bG3\b|\bCIP\b'
-      scope: move.circular.GCODE
+      scope: gcode.circular-move.GCODE
+
+    # Feedrate: F#.
+    - match: '(?<=\s)F(?![a-zA-Z])[=]?[-+]?[0-9]*\.?[0-9]*'
+      scope: gcode.feedrate.GCODE
+
+    # Workpiece coordinate system activation: G500, G54-G57 and G505-G599.
+    - match: '\bG5([4-7]|[0-9][0-9])\b'
+      scope: gcode.userframe-activation.GCODE
+
+    # Workpiece coordinate system definition: $P_UIFR[#]= ...
+    - match: '(\$P_UIFR)(\S+)*'
+      scope: gcode.userframe-definition.GCODE
+
+    # End of subprogram: M17 or M30.
+    - match: '\bM17\b|\bM30\b'
+      scope: gcode.end-of-program.GCODE
+
+    # Absoulte dimensioning: G90.
+    - match: '\bG90\b|\bG91\b'
+      scope: gcode.coordinate-value-input-mode.GCODE
 
   double_quoted_string:
     - meta_scope: string.quoted.double.GCODE

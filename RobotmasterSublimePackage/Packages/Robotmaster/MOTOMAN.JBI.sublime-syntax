@@ -35,12 +35,12 @@ contexts:
 
     # Motion type
     - match: '\b(MOVJ|MOVL|MOVC|MOVS)\b'
-      scope: support.type.JBI
+      scope: test.JBI
 
     # Coords
     #- match: '\b(X|Y|Z|A|B|C|E+\d|S|T)\b'
     #  scope: keyword.control.JBI
-    
+
     # Variable controler
     - match: '(\#+\w+)'
       scope: variable.language.JBI
@@ -48,10 +48,10 @@ contexts:
     # Variable controler
     - match: '(\$+\w+)'
       scope: entity.name.JBI
-    
+
     # Comment
     - match: ';.+'
-      scope: comment.line.JBI    
+      scope: comment.line.JBI
 
   double_quoted_string:
     - meta_scope: string.quoted.double.JBI
