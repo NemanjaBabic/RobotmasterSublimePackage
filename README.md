@@ -4,7 +4,6 @@ Sublime Text package containing robotic syntaxes
 Copy-paste the content of the RobotmasterSublimePackage folder into: C:\Users\YourNameHere\AppData\Roaming\Sublime Text 3\.
 
 * Installed Packages
-* Lib
 * Local
 * Packages
 
